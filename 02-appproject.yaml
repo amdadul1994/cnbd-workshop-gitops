@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cloudnative
+  namespace: argocd
+spec:
+  description: Project for applications from cloudnative-gitops repository
+  sourceRepos:
+    - 'git@github.com:amdadulbari/cloudnative-gitops.git'
+    - '*'  # Allow all repos if needed, or remove this line to restrict
+  destinations:
+    - namespace: '*'
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: ''
+      kind: ClusterRole
+    - group: ''
+      kind: ClusterRoleBinding
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
